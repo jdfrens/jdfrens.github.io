@@ -1,19 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://jdfrens.github.io/blog/2013/08/03/ignore-me/</loc>
+        <loc>http://programming-during-recess.net/blog/2013/08/03/ignore-me/</loc>
         <lastmod>2013-08-03T20:45:00-05:00</lastmod>
     </url>
     <url>
-        <loc>http://jdfrens.github.io/blog/archives/</loc>
+        <loc>http://programming-during-recess.net/blog/archives/</loc>
         <lastmod>2013-08-03T20:45:00-05:00</lastmod>
     </url>
     <url>
-        <loc>http://jdfrens.github.io/</loc>
+        <loc>http://programming-during-recess.net/</loc>
         <lastmod>2013-08-03T20:54:58-05:00</lastmod>
     </url>
     <url>
-        <loc>http://jdfrens.github.io/robots.txt</loc>
+        <loc>http://programming-during-recess.net/robots.txt</loc>
         <lastmod>2013-08-03T18:54:57-05:00</lastmod>
     </url>
 </urlset>

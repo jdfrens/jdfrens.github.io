@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Programming During Recess]]></title>
-  <link href="http://jdfrens.github.io/atom.xml" rel="self"/>
-  <link href="http://jdfrens.github.io/"/>
-  <updated>2013-08-03T21:01:22-05:00</updated>
-  <id>http://jdfrens.github.io/</id>
+  <link href="http://programming-during-recess.net/atom.xml" rel="self"/>
+  <link href="http://programming-during-recess.net/"/>
+  <updated>2013-08-03T21:18:20-05:00</updated>
+  <id>http://programming-during-recess.net/</id>
   <author>
     <name><![CDATA[Jeremy D. Frens]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Ignore me!]]></title>
-    <link href="http://jdfrens.github.io/blog/2013/08/03/ignore-me/"/>
+    <link href="http://programming-during-recess.net/blog/2013/08/03/ignore-me/"/>
     <updated>2013-08-03T17:26:00-05:00</updated>
-    <id>http://jdfrens.github.io/blog/2013/08/03/ignore-me</id>
+    <id>http://programming-during-recess.net/blog/2013/08/03/ignore-me</id>
     <content type="html"><![CDATA[<p>Goddammit, I said you have to ignore me!  I won&rsquo;t always be here.</p>
 ]]></content>
   </entry>

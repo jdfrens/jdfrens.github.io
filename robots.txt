@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://jdfrens.github.io/sitemap.xml 
+Sitemap: http://programming-during-recess.net/sitemap.xml 
