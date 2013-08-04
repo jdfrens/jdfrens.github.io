@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ruby | Programming During Recess]]></title>
+  <link href="http://jdfrens.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://jdfrens.github.io/"/>
+  <updated>2013-08-03T20:42:23-05:00</updated>
+  <id>http://jdfrens.github.io/</id>
+  <author>
+    <name><![CDATA[Jeremy D. Frens]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Even Better Enumeration Processing]]></title>
+    <link href="http://jdfrens.github.io/blog/2013/08/03/ignore-me/"/>
+    <updated>2013-08-03T17:26:00-05:00</updated>
+    <id>http://jdfrens.github.io/blog/2013/08/03/ignore-me</id>
+    <content type="html"><![CDATA[<p>In a <a href="http://jdfrens.blogspot.com/2013/03/filter-first.html">previous blog post</a> I talked about filtering your data before transforming it.  I ended with this code:</p>
+
+<p><code>ruby
+reject { |i| i % 4 == 0 }.
+  map { |i| i + 1 }
+</code></p>
+
+<p>While I prefer this much more than the code I started with (read <a href="http://jdfrens.blogspot.com/2013/03/filter-first.html">that previous post</a> for the reasons why), it can be improved by abstracting it some more.</p>
+
+<p>Let&#39;s at least use a parameter for the source enumeration:</p>
+
+<p><code>ruby
+def process(values)
+  values.
+  reject { |i| i % 4 == 0 }.
+  map { |i| i + 1 }
+end
+process(1..5)
+</code></p>
+
+<p>That computes the same results, but we hate top-level methods like this.  If I were being really careful, I&#39;d refactor the method into a class method with a parameter, but I&#39;m going to take it to the following step where <code>values</code> becomes an instance variable and <code>process</code> is an instance method:</p>
+
+<p>```ruby
+class MyProcessor &lt; Struct.new(:values)
+  def process</p>
+
+<pre><code>values.
+  reject { |i| i % 4 == 0 }.
+  map { |i| i + 1 }
+</code></pre>
+
+<p>  end
+end
+MyProcessor.new(1..5).process
+```</p>
+
+<p>That still computes the same thing.  Now I&#39;m going to extract a few methods:</p>
+
+<p>```ruby
+class MyProcessor &lt; Struct.new(:values)
+  def process</p>
+
+<pre><code>add_1_to_non_multiples_of_4
+</code></pre>
+
+<p>  end
+  def add_1_to_non_multiples_of_4</p>
+
+<pre><code>filter_out_multiples_of_4.map { |i| i + 1 }
+</code></pre>
+
+<p>  end
+  def filter_out_multiples_of_4</p>
+
+<pre><code>values.reject { |i| i % 4 == 0 }
+</code></pre>
+
+<p>  end
+end
+MyProcessor.new(1..5).process
+```</p>
+
+<p>Even though my example is terribly contrived and I&#39;m pushing the bounds of good taste by sticking with it, this code is easier to reason about and to unit test.  In particular, it&#39;s much easier to test edge cases with this code.</p>
+]]></content>
+  </entry>
+  
+</feed>
