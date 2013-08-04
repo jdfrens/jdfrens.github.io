@@ -5,13 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Even Better Enumeration Processing - Programming During Recess</title>
+  <title>Ignore me! - Programming During Recess</title>
   <meta name="author" content="Jeremy D. Frens">
 
   
-  <meta name="description" content="In a previous blog post I talked about filtering your data before transforming it. I ended with this code: 1
-2
-reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
+  <meta name="description" content="Goddammit, I said you have to ignore me! I won&rsquo;t always be here.
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -69,7 +68,7 @@ reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
   
   <header>
     
-      <h1 class="entry-title">Even Better Enumeration Processing</h1>
+      <h1 class="entry-title">Ignore Me!</h1>
     
     
       <p class="meta">
@@ -92,85 +91,7 @@ reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
   </header>
 
 
-<div class="entry-content"><p>In a <a href="http://jdfrens.blogspot.com/2013/03/filter-first.html">previous blog post</a> I talked about filtering your data before transforming it.  I ended with this code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>While I prefer this much more than the code I started with (read <a href="http://jdfrens.blogspot.com/2013/03/filter-first.html">that previous post</a> for the reasons why), it can be improved by abstracting it some more.</p>
-
-<p>Let&#39;s at least use a parameter for the source enumeration:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">values</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span><span class="o">.</span>
-</span><span class='line'>  <span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'><span class="n">process</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">5</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That computes the same results, but we hate top-level methods like this.  If I were being really careful, I&#39;d refactor the method into a class method with a parameter, but I&#39;m going to take it to the following step where <code>values</code> becomes an instance variable and <code>process</code> is an instance method:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">MyProcessor</span> <span class="o">&lt;</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:values</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">process</span>
-</span><span class='line'>    <span class="n">values</span><span class="o">.</span>
-</span><span class='line'>      <span class="n">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span><span class="o">.</span>
-</span><span class='line'>      <span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'><span class="no">MyProcessor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">process</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>That still computes the same thing.  Now I&#39;m going to extract a few methods:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">MyProcessor</span> <span class="o">&lt;</span> <span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:values</span><span class="p">)</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">process</span>
-</span><span class='line'>    <span class="n">add_1_to_non_multiples_of_4</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">add_1_to_non_multiples_of_4</span>
-</span><span class='line'>    <span class="n">filter_out_multiples_of_4</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">filter_out_multiples_of_4</span>
-</span><span class='line'>    <span class="n">values</span><span class="o">.</span><span class="n">reject</span> <span class="p">{</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'><span class="no">MyProcessor</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">1</span><span class="o">.</span><span class="n">.</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">process</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Even though my example is terribly contrived and I&#39;m pushing the bounds of good taste by sticking with it, this code is easier to reason about and to unit test.  In particular, it&#39;s much easier to test edge cases with this code.</p>
+<div class="entry-content"><p>Goddammit, I said you have to ignore me!  I won&rsquo;t always be here.</p>
 </div>
 
 
@@ -195,12 +116,6 @@ reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
 
 <time datetime="2013-08-03T17:26:00-05:00" pubdate data-updated="true">Aug 3<span>rd</span>, 2013</time>
       
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/programming-style/'>programming style</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
-  
-</span>
 
 
     </p>
@@ -248,7 +163,7 @@ reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2013/08/03/ignore-me/">Even Better Enumeration Processing</a>
+        <a href="/blog/2013/08/03/ignore-me/">Ignore me!</a>
       </li>
     
   </ul>
@@ -256,9 +171,7 @@ reject { |i| i % 4 == 0 }. map { |i| i &hellip;">
 <section>
   <h1>Categories</h1>
   <ul id="categories">
-    <li class='category'><a href='/blog/categories/programming-style/'>programming style (1)</a></li>
-<li class='category'><a href='/blog/categories/ruby/'>ruby (1)</a></li>
-
+    
   </ul>
 </section>
 
