@@ -6,4 +6,4 @@ comments: true
 categories:
 ---
 
-Goddammit, I said you have to ignore me!  I won't always be here.
+You have to ignore me!  I won't always be here.

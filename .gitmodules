@@ -1,3 +1,6 @@
 [submodule ".themes/forest"]
 	path = .themes/forest
 	url = https://github.com/octothemes/forest.git
+[submodule ".themes/octoflat"]
+	path = .themes/octoflat
+	url = https://github.com/alexgaribay/octoflat
